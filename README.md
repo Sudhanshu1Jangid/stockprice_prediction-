@@ -25,5 +25,4 @@ StockSage is a powerful web application for stock market analysis, portfolio man
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/StockSage.git
-   
+   git@github.com:Sudhanshu1Jangid/stockprice_prediction-.git   
