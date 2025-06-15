@@ -2,7 +2,7 @@
 
 ## 🚀 Overview
 
-**StockSage** is a powerful web application for stock market analysis, portfolio management, and next-day price prediction using advanced deep learning techniques. Built with Python, TensorFlow's LSTM neural network, and Streamlit, it provides accurate forecasts, comprehensive analytics, and a user-friendly interface.
+StockSage is a powerful web application for stock market analysis, portfolio management, and next-day price prediction using advanced deep learning techniques. Built with Python, TensorFlow's LSTM neural network, and Streamlit, it provides accurate forecasts, comprehensive analytics, and a user-friendly interface.
 
 ## 🔍 Features
 
@@ -24,8 +24,6 @@
 ## 🧑‍💻 Setup and Installation
 
 1. **Clone the repository:**
-
    ```bash
    git clone https://github.com/yourusername/StockSage.git
-
    
