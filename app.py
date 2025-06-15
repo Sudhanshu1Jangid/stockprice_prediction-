@@ -6,14 +6,11 @@ from modules.portfolio import Portfolio
 from modules.analysis import calculate_technical_indicators
 from modules.utils import validate_ticker
 
-# Page configuration
 st.set_page_config(page_title="Stock Market Analysis Platform", layout="wide")
 
-# Initialize session state
 if 'portfolio' not in st.session_state:
     st.session_state.portfolio = Portfolio()
 
-# Sidebar
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Select Page", ["Stock Analysis", "Portfolio", "Predictions"])
 
@@ -27,14 +24,11 @@ if page == "Stock Analysis":
         if validate_ticker(ticker):
             with st.spinner('Fetching stock data...'):
                 try:
-                    # Fetch stock data
                     df = fetch_stock_data(ticker)
                     
-                    # Display stock price chart
                     st.subheader("Stock Price History")
                     st.line_chart(df['Close'])
                     
-                    # Calculate and display technical indicators
                     indicators = calculate_technical_indicators(df)
                     
                     col1, col2 = st.columns(2)
@@ -71,13 +65,11 @@ elif page == "Portfolio":
             else:
                 st.error("Please enter valid ticker and shares")
     
-    # Display portfolio
     portfolio_data = st.session_state.portfolio.get_portfolio_status()
     if not portfolio_data.empty:
         st.subheader("Current Holdings")
         st.dataframe(portfolio_data)
         
-        # Portfolio value chart
         st.subheader("Portfolio Value Over Time")
         portfolio_history = st.session_state.portfolio.get_portfolio_history()
         st.line_chart(portfolio_history['Total Value'])
