@@ -21,7 +21,7 @@ def create_sequences(data: np.ndarray, seq_length: int):
     X, y = [], []
     for i in range(seq_length, len(data)):
         X.append(data[i - seq_length:i])
-        y.append(data[i, 0])  # predict closing price
+        y.append(data[i, 0])  
     return np.array(X), np.array(y)
 
 
@@ -44,19 +44,15 @@ def predict_stock_price(
     df = fetch_stock_data(ticker)
     df = df[['Close']].dropna()
 
-    # 2. Scale data
     scaler = MinMaxScaler(feature_range=(0, 1))
     scaled = scaler.fit_transform(df.values)
 
-    # 3. Create sequences
     X, y = create_sequences(scaled, seq_length)
 
-    # 4. Split into train/test
     split_idx = int(len(X) * (1 - test_size))
     X_train, X_test = X[:split_idx], X[split_idx:]
     y_train, y_test = y[:split_idx], y[split_idx:]
 
-    # 5. Build LSTM model
     model = Sequential([
         LSTM(128, return_sequences=True, input_shape=(seq_length, X.shape[2])),
         BatchNormalization(),
@@ -70,7 +66,6 @@ def predict_stock_price(
     ])
     model.compile(optimizer='adam', loss='mean_squared_error')
 
-    # 6. Callbacks
     early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, verbose=1)
 
@@ -84,7 +79,6 @@ def predict_stock_price(
         verbose=1
     )
 
-    # 8. Evaluate on test set
     y_pred_scaled = model.predict(X_test)
     y_pred = scaler.inverse_transform(
         np.hstack([y_pred_scaled, np.zeros((y_pred_scaled.shape[0], X.shape[2]-1))])
@@ -97,7 +91,6 @@ def predict_stock_price(
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     r2 = r2_score(y_true, y_pred)
 
-    # 9. Predict next-day price
     last_seq = scaled[-seq_length:]
     last_seq = last_seq.reshape((1, seq_length, X.shape[2]))
     pred_scaled = model.predict(last_seq)
@@ -105,7 +98,6 @@ def predict_stock_price(
         np.hstack([pred_scaled, np.zeros((pred_scaled.shape[0], X.shape[2]-1))])
     )[:, 0])
 
-    # 10. Generate full forecast for plotting
     preds_scaled = model.predict(X)
     preds = scaler.inverse_transform(
         np.hstack([preds_scaled, np.zeros((preds_scaled.shape[0], X.shape[2]-1))])
