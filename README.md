@@ -1,8 +1,8 @@
-# 📈 StockSage: Stock Price Prediction and Portfolio Analysis
+# 📈 Stock Price Prediction and Portfolio Analysis
 
 ## 🚀 Overview
 
-StockSage is a powerful web application for stock market analysis, portfolio management, and next-day price prediction using advanced deep learning techniques. Built with Python, TensorFlow's LSTM neural network, and Streamlit, it provides accurate forecasts, comprehensive analytics, and a user-friendly interface.
+Powerful web application for stock market analysis, portfolio management, and next-day price prediction using advanced deep learning techniques. Built with Python, TensorFlow's LSTM neural network, and Streamlit, it provides accurate forecasts, comprehensive analytics, and a user-friendly interface.
 
 ## 🔍 Features
 
